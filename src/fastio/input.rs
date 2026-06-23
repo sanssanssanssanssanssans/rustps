@@ -171,4 +171,42 @@ impl FastI {
     pub fn f32(&mut self) -> f32 {
         self.f64() as f32
     }
+
+    #[inline(always)]
+    pub fn u128(&mut self) -> u128 {
+        let mut c = self.skip_whitespace().expect("unexpected EOF");
+        let mut x = 0u128;
+
+        loop {
+            x = x * 10 + (c - b'0') as u128;
+            match self.byte() {
+                Some(nc) if nc > b' ' => c = nc,
+                _ => break,
+            }
+        }
+
+        x
+    }
+
+    #[inline(always)]
+    pub fn i128(&mut self) -> i128 {
+        let mut c = self.skip_whitespace().expect("unexpected EOF");
+        let mut sign = 1i128;
+
+        if c == b'-' {
+            sign = -1;
+            c = self.byte().expect("unexpected EOF");
+        }
+
+        let mut x = 0i128;
+        loop {
+            x = x * 10 + (c - b'0') as i128;
+            match self.byte() {
+                Some(nc) if nc > b' ' => c = nc,
+                _ => break,
+            }
+        }
+
+        x * sign
+    }
 }
