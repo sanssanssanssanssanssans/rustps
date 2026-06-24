@@ -128,6 +128,11 @@ impl FastO {
             self.push(tmp[len]);
         }
     }
+
+    #[inline(always)]
+    pub fn u32(&mut self, x: u32) {
+        self.u64(x as u64);
+    }
 }
 
 impl Drop for FastO {

@@ -105,6 +105,11 @@ impl FastI {
     }
 
     #[inline(always)]
+    pub fn u32(&mut self) -> u32 {
+        self.u64() as u32
+    }
+
+    #[inline(always)]
     pub fn bytes(&mut self) -> Vec<u8> {
         let mut out = Vec::new();
         if let Some(mut c) = self.skip_whitespace() {

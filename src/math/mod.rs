@@ -1,3 +1,6 @@
+pub mod miller_rabin;
+pub mod pollard_rho;
+
 pub fn fib(n: u64, modulo: u128) -> u128 {
     fn rec(n: u64, m: u128) -> (u128, u128) {
         if n == 0 {
